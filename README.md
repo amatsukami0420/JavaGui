@@ -1,100 +1,201 @@
-# JavaGui
+# JavaGui - Java Swing GUI Components Library
 
-A minimal Java Swing project demonstrating how to create and customize a basic window (JFrame). The repository is organized to be modular, so additional GUI packages can be added under src as the project grows.
+A modular collection of Java Swing GUI components and examples for learning and rapid application development.
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Project Structure](#project-structure)
+- [Getting Started](#getting-started)
+- [Components](#components)
+- [Usage Examples](#usage-examples)
+- [Contributing](#contributing)
+- [Requirements](#requirements)
 
 ## Overview
-- Stack: Java (JDK), Swing (javax.swing), AWT (java.awt)
-- Package manager/build tool: None currently (plain IntelliJ IDEA project). TODO: Consider adding Gradle or Maven for reproducible builds.
-- Entry point: Frames.Main (src/Frames/Main.java)
-- Current packages:
-  - Frames: Contains a simple MyFrame class that sets up a JFrame and a Main launcher.
 
-## Requirements
-- Java Development Kit (JDK) 8+ (JDK 11+ recommended)
-- IntelliJ IDEA (optional but recommended) or any Java IDE
-- OS: Cross‑platform. The commands below are shown for Windows PowerShell; adjust for your shell/OS as needed.
+This repository contains a modular collection of Java Swing GUI components organized by functionality. Each module demonstrates best practices for creating desktop applications using Java's Swing framework.
 
-Environment variables:
-- JAVA_HOME should point to your JDK installation.
-- Ensure %JAVA_HOME%\bin (Windows) or $JAVA_HOME/bin (macOS/Linux) is on your PATH so javac and java are available.
-
-## Setup and Run
-You can open the project in IntelliJ IDEA and use the Run configuration for Frames.Main, or build and run from the command line.
-
-### Run with IntelliJ IDEA
-1. Open the project directory (JavaGui) in IntelliJ.
-2. Mark src as a Sources Root if not already.
-3. Create a Run Configuration for the main class: Frames.Main.
-4. Click Run.
-
-### Build and run from the command line (Windows PowerShell)
-Compile to an out directory and run the main class:
-
-- Create an output directory (first time only):
-  `mkdir -Force out`
-
-- Compile:
-  javac -d out -cp src src\Frames\Main.java
-
-- Run:
-  java -cp out Frames.Main
-
-Note: The MyFrame class references an icon at a hard-coded absolute path. If the icon does not exist on your machine, the window will still open but without the icon. See the Configuration below for options.
-
-## Configuration
-- Window icon: MyFrame currently loads an image via an absolute path (C:\Users\hp\OneDrive\Documents\Assets\COMSATS.png).
-  - Option A: Update the path in src/Frames/MyFrame.java to point to an image available on your machine.
-  - Option B: Refactor to use a resource on the classpath (recommended for portability). TODO: Move the icon into a resources folder and load via getResource.
-
-## Scripts
-There are no project scripts yet. Typical future additions:
-- Gradle tasks (build, run, test)
-- Maven goals
-- Simple PowerShell/Bash scripts to compile and run
-
-TODO:
-- Decide on a build tool and add standard scripts.
-
-## Tests
-There are no automated tests at the moment.
-
-TODO:
-- Introduce a testing framework (e.g., JUnit) and add sample tests for window creation logic or utility classes.
+**Purpose:**
+- Learn Java Swing fundamentals
+- Reusable GUI components
+- Quick reference for common UI patterns
+- Foundation for building desktop applications
 
 ## Project Structure
-```- JavaGui.iml                (IntelliJ IDEA module file)
-- src/
-  - Frames/
-    - Main.java              (application entry point)
-    - MyFrame.java           (JFrame subclass with basic configuration)
-    - README.md              (package-level documentation)
-- out/                       (compiled classes; generated during builds)
+
 ```
-As the project grows, place each feature or GUI demo in its own package under src with its own README.
+JavaGui/
+├── src/
+│   ├── Frames/          # Frame components and window management
+│   │   ├── Main.java    # Entry point with basic frame demo
+│   │   ├── MyFrame.java # Custom JFrame implementation
+│   │   └── README.md    # Frame-specific documentation
+│   └── Labels/          # Label components and examples
+│       └── Label.java   # JLabel implementation with icons and styling
+├── README.md            # This file
+└── JavaGui.iml          # IntelliJ IDEA module file
+```
 
-## Modular Documentation
-This repository uses a modular documentation approach:
-- Root README (this file) provides overview, setup, and common tasks.
-- Each package under src should include its own README.md describing its purpose, usage, and any specifics.
+## Getting Started
 
-Current package docs:
-- src/Frames/README.md — basic docs for the Frames package (see below for enhancements).
+### Prerequisites
 
-## License
-No license file is present.
+- **Java Development Kit (JDK)**: Version 8 or higher
+- **IDE**: IntelliJ IDEA, Eclipse, or any Java IDE (optional)
+- **Assets**: Some examples reference external image files (see Configuration)
 
-TODO:
-- Choose and add a LICENSE file (e.g., MIT, Apache-2.0). Update this section once selected.
+### Configuration
+
+Before running examples that use images, update the icon path in the source files:
+
+```java
+// Change this path to match your system
+ImageIcon icon = new ImageIcon("C:\\Users\\hp\\OneDrive\\Documents\\Assets\\COMSATS.png");
+```
+
+Or set it to `null` / remove icon-related code if you don't have assets.
+
+### Running Examples
+
+#### Using Command Line
+
+```cmd
+# Navigate to project root
+cd C:\Users\hp\OneDrive\Documents\JavaGui
+
+# Compile all Java files
+javac -d bin src\Frames\*.java src\Labels\*.java
+
+# Run specific examples
+java -cp bin Frames.Main
+java -cp bin Labels.Label
+```
+
+#### Using IDE
+
+1. Open the project in your IDE
+2. Navigate to any main class (e.g., `Frames.Main` or `Labels.Label`)
+3. Right-click and select "Run"
+
+## Components
+
+### Frames Module (`src/Frames/`)
+
+**MyFrame.java** - Custom JFrame implementation with:
+- Window configuration (size, title, close operation)
+- Icon support
+- Background color customization
+- Non-resizable window setting
+
+**Main.java** - Demonstrates frame instantiation and usage
+
+[Detailed Frames Documentation](src/Frames/README.md)
+
+### Labels Module (`src/Labels/`)
+
+**Label.java** - JLabel component demonstration featuring:
+- Text and icon combination
+- Horizontal and vertical text positioning
+- Alignment settings (center, top, bottom)
+- Custom fonts and styling
+- Icon-text gap customization
+- Thread-safe UI updates with SwingUtilities
+
+## Usage Examples
+
+### Creating a Basic Frame
+
+```java
+import Frames.MyFrame;
+
+public class Example {
+    public static void main(String[] args) {
+        MyFrame frame = new MyFrame();
+    }
+}
+```
+
+### Creating a Label with Custom Styling
+
+```java
+import javax.swing.*;
+import java.awt.*;
+
+public class CustomLabel {
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            JLabel label = new JLabel("Your Text Here");
+            label.setFont(new Font("SansSerif", Font.BOLD, 16));
+            label.setHorizontalAlignment(SwingConstants.CENTER);
+            
+            JFrame frame = new JFrame();
+            frame.add(label);
+            frame.setSize(400, 300);
+            frame.setVisible(true);
+        });
+    }
+}
+```
+
+## Requirements
+
+- **Java**: JDK 8+
+- **Dependencies**: Java Swing (included in JDK)
+  - `javax.swing.*`
+  - `java.awt.*`
+
+## Learning Path
+
+1. **Frames** - Start with basic window creation and configuration
+2. **Labels** - Learn text and icon display with styling
+3. **Future Modules** - More components coming soon!
+
+## Future Modules (Planned)
+
+- **Buttons** - Action handling and button styling
+- **Panels** - Layout management and container organization
+- **TextFields** - User input and validation
+- **Menus** - Menu bars and popup menus
+- **Dialogs** - Modal dialogs and user prompts
+- **Tables** - Data display and manipulation
+- **Lists** - Scrollable list components
+- **Custom Components** - Building reusable custom widgets
 
 ## Contributing
-For now, this is a personal learning/demo repository.
 
-TODO:
-- Add contributing guidelines if external contributions are expected in the future.
+This is a learning project. Feel free to:
+1. Add new component modules following the existing structure
+2. Improve existing examples
+3. Add documentation
+4. Report issues or suggest improvements
 
-## Known Issues
-- Absolute path to the window icon reduces portability.
-- No standardized build tool or tests are configured yet.
+### Adding a New Module
 
-## Changelog
-- 2025-10-22: Initial repository documentation added (root and package-level readmes).
+1. Create a new package under `src/` (e.g., `src/Buttons/`)
+2. Implement your component examples
+3. Add a README.md in the module directory
+4. Update this central README with the new module info
+
+## Best Practices Demonstrated
+
+- Event Dispatch Thread usage (`SwingUtilities.invokeLater`)
+- Modular package organization
+- Separation of concerns (Frame class vs Main class)
+- Consistent naming conventions
+- Documentation and comments
+
+## License
+
+This project is intended for educational purposes.
+
+## Author
+
+Created as a learning resource for Java Swing GUI development.
+
+---
+
+**Last Updated:** October 2025
+
+**Note:** This is an active learning project. Components and documentation are continuously being refined and expanded.
+
